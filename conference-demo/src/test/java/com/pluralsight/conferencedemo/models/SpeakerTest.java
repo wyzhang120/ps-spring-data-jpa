@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -58,5 +59,38 @@ public class SpeakerTest {
     public void testJpaOr() throws Exception {
         List<Speaker> speakers = repository.findByFirstNameOrLastName("Justin", "Clark");
         assertTrue(speakers.size() > 0);
+    }
+
+    @Test
+    public void testJpaNull() throws Exception {
+        List<Speaker> speakers = repository.findBySpeakerPhotoNull();
+        assertTrue(speakers.size() > 0);
+    }
+
+    @Test
+    public void testJpaIn() throws Exception {
+        List<String> companies = new ArrayList<>();
+        companies.add("Nation Bank");
+        companies.add("Contoso");
+        List<Speaker> speakers = repository.findByCompanyIn(companies);
+        assertTrue(speakers.size() > 0);
+    }
+
+    @Test
+    public void testJpaIgnoreCase() throws Exception {
+        List<Speaker> speakers = repository.findByCompanyIgnoreCase("national Bank");
+        assertTrue(speakers.size() > 0);
+    }
+
+    @Test
+    public void testJpaOrderBy() throws Exception {
+        List<Speaker> speakers = repository.findByLastNameOrderByFirstNameAsc("Clark");
+        assertTrue(speakers.size() > 0);
+    }
+
+    @Test
+    public void testJpaFirst() throws Exception {
+        Speaker speaker = repository.findFirstByFirstName("James");
+        assertTrue(speaker.getFirstName().equals("James"));
     }
 }
