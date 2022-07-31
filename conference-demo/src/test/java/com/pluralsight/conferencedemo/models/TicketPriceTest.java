@@ -66,4 +66,9 @@ public class TicketPriceTest {
         assertTrue(tickets.size() > 0);
     }
 
+    @Test void testNamedQuery() throws Exception  {
+        List<TicketPrice> tickets = repository.namedFindTicketsByPricingCategoryName("Regular");
+        assertTrue(tickets.size() > 0);
+    }
+
 }
