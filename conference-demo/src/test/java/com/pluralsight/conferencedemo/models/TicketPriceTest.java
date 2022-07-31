@@ -71,4 +71,9 @@ public class TicketPriceTest {
         assertTrue(tickets.size() > 0);
     }
 
+    @Test void testNamedNativeQuery() throws Exception  {
+        List<TicketPrice> tickets = repository.nativeFindTicketsByCategoryWithWorkshop("Regular");
+        assertTrue(tickets.size() > 0);
+    }
+
 }
